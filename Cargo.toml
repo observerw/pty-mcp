@@ -1,6 +1,6 @@
 [package]
 name = "pty-mcp"
-version = "0.2.3"
+version = "0.3.0"
 edition = "2024"
 description = "An MCP server for PTY management with SSH connections, remote sessions, file access, and mounts"
 license = "MIT"
