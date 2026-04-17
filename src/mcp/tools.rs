@@ -197,11 +197,11 @@ impl JsonSchema for SshConnectRequest {
             "properties": {
                 "host_alias": {
                     "type": ["string", "null"],
-                    "description": "SSH config alias to connect to. Provide this or host."
+                    "description": "SSH config alias to connect to. Required when auth_kind=config_alias. Provide this or host (at least one must be set)."
                 },
                 "host": {
                     "type": ["string", "null"],
-                    "description": "SSH hostname to connect to. Provide this or host_alias."
+                    "description": "SSH hostname to connect to. Provide this or host_alias (at least one must be set)."
                 },
                 "port": {
                     "type": ["integer", "null"],
@@ -235,49 +235,7 @@ impl JsonSchema for SshConnectRequest {
                     "description": "Whether SSH host key verification should remain enabled. Default: true."
                 }
             },
-            "required": ["auth_kind"],
-            "anyOf": [
-                {
-                    "required": ["host_alias"],
-                    "properties": {
-                        "host_alias": {
-                            "type": "string",
-                            "minLength": 1
-                        }
-                    }
-                },
-                {
-                    "required": ["host"],
-                    "properties": {
-                        "host": {
-                            "type": "string",
-                            "minLength": 1
-                        }
-                    }
-                }
-            ],
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "auth_kind": { "const": "config_alias" }
-                        }
-                    },
-                    "then": {
-                        "required": ["host_alias"]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "auth_kind": { "const": "identity_file" }
-                        }
-                    },
-                    "then": {
-                        "required": ["identity_path"]
-                    }
-                }
-            ]
+            "required": ["auth_kind"]
         })
     }
 }
